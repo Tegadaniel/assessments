@@ -9,7 +9,7 @@ function Content() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     Api().then((data) => {
-      console.log(data.results);
+      console.log(data.results[0].user.name);
       setImage(data.results);
       setLoading(false);
     });
@@ -19,12 +19,11 @@ function Content() {
     console.log("search here: ", search);
   };
 
-  const filterResult = image.filter(
-    (data) =>(
-      data.user.name.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-      data.user.location.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-      data.user.twitter_username.toLowerCase().indexOf(search.toLowerCase()) !== -1 
-  ));
+  const filterResult = image.filter((data) =>
+    data.user.name.toLowerCase().includes(search.toLowerCase()) ||
+     data.user.location && data.user.location.toLowerCase().includes(search.toLowerCase()) ||
+     data.user.twitter_username && data.user.twitter_username.toLowerCase().includes(search.toLowerCase()) 
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
