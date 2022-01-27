@@ -19,6 +19,11 @@ function Content() {
     console.log("search here: ", search);
   };
 
+  const Style = {
+    height: "100px",
+    width: "100px"
+  }
+// 
   const filterResult = image.filter((data) =>
     data.user.name.toLowerCase().includes(search.toLowerCase()) ||
      data.user.location && data.user.location.toLowerCase().includes(search.toLowerCase()) ||
@@ -47,14 +52,17 @@ function Content() {
           {filterResult.map((data, index) => (
             <div key={index}>
               <Box pos="relative" overflow="hidden">
+                <div style={{Style}}>
                 <Image
-                  width="400"
+                  width="100%"
+                  objectFit='cover'
                   height="250"
                   rounded="0.5rem"
                   src={data.urls.small}
                   alt={data.alt_description}
                   cursor="pointer"
                 />
+                </div>
                 <Text as="span" mt="1" color="gray.600" fontSize="sm">
                   Name: {data.user.name}
                 </Text>
